@@ -34,18 +34,18 @@
               <div class="col-12">
                   <form action="{{ route('admin.categories.store')}}" method="POST" class="w-25">
                       @csrf  
-                      <div class="form-group mb-2">
+                      <div class="form-group">
                             <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"  aria-describedby="Название">
                      
-                          @error('title')
+                            @error('title')
 
-                        <div class="invalid-feedback">
-                          {{ $message}}
-                        </div>
-                      @enderror
-                          </div>
+                            <div class="text-danger">
+                              {{ $message}}
+                            </div>
+                            @enderror
+                      </div>
                  
-                      <input type="submit" class="btn btn-primary" value="Добавить">
+                      <input type="submit" class="btn btn-primary mt-3" value="Добавить">
                   </form>
               </div>
               <!--end::Col-->

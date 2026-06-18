@@ -13,8 +13,11 @@ class CategoryController extends Controller
      * Display a listing of the resource.
      */
     public function index()
+
     {
-        return view('admin.categories.index');
+
+        $categories = Category::all();
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
