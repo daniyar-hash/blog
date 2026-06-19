@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Admin Category Page')
+@section('title', 'Show Category')
 
 @section('content')
  <main class="app-main">
@@ -12,8 +12,19 @@
           <div class="container-fluid">
             <!--begin::Row-->
             <div class="row">
-              <div class="col-sm-6">
-                <h3 class="mb-0">Категории</h3>
+              <div class="col-sm-6 d-flex align-items-center">
+                <h3 class="mb-0 me-3">{{ $category->title}}</h3>
+              
+                  <a href="{{ route('admin.categories.edit', $category->id)}}" class="text-secondary me-1">
+                    <i class="fas fa-pencil-alt"></i>
+                  </a>
+                  <form action="{{ route('admin.categories.destroy', $category->id)}}" method="POST">
+                      @csrf 
+                      @method('DELETE')
+                      <button type="submit" class="text-secondary bg-transparent border-0">
+                      <i class="far fa-trash-alt"></i>
+                      </button>
+                  </form>
               </div>
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
@@ -32,12 +43,7 @@
           <!--begin::Container-->
           <div class="container-fluid">
             <!--begin::Row-->
-            <div class="row">
-              <div class="col-12">
-                <a href="{{ route('admin.categories.create')}}" class="btn btn-block btn-primary">Добавить</a>
-              </div>
-
-            </div>
+          
             <div class="row">
               <div class="col-6 mt-3">
                   <div class="card mb-4">
@@ -45,42 +51,18 @@
                   <!-- /.card-header -->
                   <div class="card-body">
                     <table class="table table-bordered" role="table">
-                      <thead>
-                        <tr>
-                          <th style="width: 10px" scope="col">ID</th>
-                          <th scope="col">Название</th>
-                          <th colspan="3" class="text-center">Действия</th>
-                        </tr>
-                      </thead>
+             
                       <tbody>
-                           @foreach($categories as $category)
+                      
                           <tr class="align-middle">
+                            <td>ID</td>
                             <td>{{ $category->id}}</td>
-                            <td>{{ $category->title}}</td>
-                            <td>
-                              <a href="{{ route('admin.categories.show', $category->id)}}" class="text-secondary">
-                                <i class="far fa-eye"></i>
-                              </a>
-                            </td>
-                            <td>
-                              <a href="{{ route('admin.categories.edit', $category->id)}}" class="text-secondary">
-                               <i class="fas fa-pencil-alt"></i>
-                              </a>
-                            </td>
-                            <td>
-                              <form action="{{ route('admin.categories.destroy', $category->id)}}" method="POST">
-                                @csrf 
-                                @method('DELETE')
-                                <button type="submit" class="text-secondary bg-transparent border-0">
-                                <i class="far fa-trash-alt"></i>
-                                </button>
-                               
-                              </form>
-                               
-                            </td>
-                          
                           </tr>
-                           @endforeach
+                          <tr>
+                            <td>Название</td>
+                            <td>{{ $category->title}}</td>
+                          </tr>
+                  
                   
                       </tbody>
                     </table>

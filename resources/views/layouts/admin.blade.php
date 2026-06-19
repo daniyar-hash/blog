@@ -42,6 +42,10 @@
     />
     <!--end::Fonts-->
 
+
+<link rel="stylesheet" href="{{ asset('assets/vendors/font-awesome/css/all.min.css') }}">
+
+
     <!--begin::Third Party Plugin(OverlayScrollbars)-->
     <link
       rel="stylesheet"
