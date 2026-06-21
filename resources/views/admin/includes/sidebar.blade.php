@@ -28,7 +28,12 @@
                   <p>Категории</p>
                 </a>
               </li>
-       
+              <li class="nav-item">
+                    <a href="{{ route('admin.tags.index')}}" class="nav-link">
+                      <i class="fas fa-tags nav-icon"></i>
+                      <p>Теги</p>
+                    </a>
+              </li>
             </ul>
             <!--end::Sidebar Menu-->
           </nav>

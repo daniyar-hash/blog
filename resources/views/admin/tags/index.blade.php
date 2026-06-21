@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Admin Category Page')
+@section('title', 'Admin Tags Page')
 
 @section('content')
  <main class="app-main">
@@ -13,7 +13,7 @@
             <!--begin::Row-->
             <div class="row">
               <div class="col-sm-6">
-                <h3 class="mb-0">Категории</h3>
+                <h3 class="mb-0">Тэги</h3>
               </div>
               
               <div class="col-sm-6">
@@ -41,7 +41,7 @@
             <!--begin::Row-->
             <div class="row">
               <div class="col-12">
-                <a href="{{ route('admin.categories.create')}}" class="btn btn-block btn-primary">Добавить</a>
+                <a href="{{ route('admin.tags.create')}}" class="btn btn-block btn-primary">Добавить</a>
               </div>
 
             </div>
@@ -60,22 +60,22 @@
                         </tr>
                       </thead>
                       <tbody>
-                           @foreach($categories as $category)
+                           @foreach($tags as $tag)
                           <tr class="align-middle text-center">
-                            <td>{{ $category->id}}</td>
-                            <td>{{ $category->title}}</td>
+                            <td>{{ $tag->id}}</td>
+                            <td>{{ $tag->title}}</td>
                             <td>
-                              <a href="{{ route('admin.categories.show', $category->id)}}" class="text-secondary">
+                              <a href="{{ route('admin.tags.show', $tag->id)}}" class="text-secondary">
                                 <i class="far fa-eye"></i>
                               </a>
                             </td>
                             <td>
-                              <a href="{{ route('admin.categories.edit', $category->id)}}" class="text-secondary">
+                              <a href="{{ route('admin.tags.edit', $tag->id)}}" class="text-secondary">
                                <i class="fas fa-pencil-alt"></i>
                               </a>
                             </td>
                             <td>
-                              <form action="{{ route('admin.categories.destroy', $category->id)}}" method="POST">
+                              <form action="{{ route('admin.tags.destroy', $tag->id)}}" method="POST">
                                 @csrf 
                                 @method('DELETE')
                                 <button type="submit" class="text-secondary bg-transparent border-0">

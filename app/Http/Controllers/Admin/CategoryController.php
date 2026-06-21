@@ -15,7 +15,7 @@ class CategoryController extends Controller
      */
     public function index()
 
-    {
+    {   
 
         $categories = Category::all();
         return view('admin.categories.index', compact('categories'));
@@ -27,7 +27,7 @@ class CategoryController extends Controller
     public function create()
     {
         
-            return view('admin.categories.create');    
+        return view('admin.categories.create');    
     }
 
     /**
@@ -91,4 +91,15 @@ class CategoryController extends Controller
              ->with('success', 'Category deleted!');
         
     }
+
+    // public function restore(Category $category)
+    // {
+    //  // Запись уже найдена благодаря ->withTrashed() в маршруте, 
+    // // нам остается только вызвать метод restore()
+    //          $category->restore();
+
+     
+
+    //     return redirect()->route('admin.categories.index')->with('success', 'Category Restore');
+    // }
 }
