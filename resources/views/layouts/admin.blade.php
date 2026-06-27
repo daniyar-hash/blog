@@ -66,6 +66,9 @@
     <link rel="stylesheet" href=" {{ asset('adminlte/css/adminlte.css') }}" as="style" />
     <!--end::Required Plugin(AdminLTE)-->
 
+    
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs5.min.css" rel="stylesheet">
+
     <!-- apexcharts -->
     <link
       rel="stylesheet"
@@ -439,7 +442,46 @@
       const sparkline3 = new ApexCharts(document.querySelector('#sparkline-3'), option_sparkline3);
       sparkline3.render();
     </script>
+
     <!--end::Script-->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.9.0/dist/summernote-bs5.min.js"></script>
+
+  
+  <script>
+      $(document).ready(function () {
+         $('#summernote').summernote({
+            height:200,
+            toolbar: [
+              // [groupName, [list of button]]
+              ['style', ['bold', 'italic', 'underline', 'clear']],
+              ['font', ['strikethrough', 'superscript', 'subscript']],
+              ['fontsize', ['fontsize']],
+              ['color', ['color']],
+              ['para', ['ul', 'ol', 'paragraph']],
+              ['height', ['height']]
+            ]
+          });
+      });
+
+
+      $('#postForm').on('submit', function () {
+            $('textarea[name="content"]').val(
+                $('#summernote').summernote('code')
+            );
+});
+</script>
+<script>
+document.getElementById('preview_image').addEventListener('change', function () {
+    document.getElementById('file_name').textContent =
+        this.files.length ? this.files[0].name : 'Файл не выбран';
+});
+
+document.getElementById('main_image').addEventListener('change', function () {
+    document.getElementById('file_image').textContent =
+        this.files.length ? this.files[0].name : 'Файл не выбран';
+});
+</script>
   </body>
   <!--end::Body-->
 </html>

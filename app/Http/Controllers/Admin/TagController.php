@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TagStoreRequest;
 use App\Http\Requests\TagUpdateRequest;
-use Illuminate\Http\Request;
 use App\Models\Tag;
 
 
@@ -38,6 +37,10 @@ class TagController extends Controller
         $data = $request->validated();
 
         Tag::create($data);
+        
+        //Tag::firstOrCreate(       
+        // ['slug' => $data['slug']],
+        // $data);  защита от дубликатов
 
         return redirect()->route('admin.tags.index')->with('success', 'Тэг успешно добавлен!');
     }

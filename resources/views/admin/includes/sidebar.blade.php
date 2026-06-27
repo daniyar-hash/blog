@@ -21,6 +21,13 @@
               data-accordion="false"
               id="navigation"
             >
+
+             <li class="nav-item">
+                <a href="{{ route('admin.posts.index')}}" class="nav-link">
+                  <i class="far fa-clipboard nav-icon"></i>
+                  <p>Посты</p>
+                </a>
+              </li>
           
               <li class="nav-item">
                 <a href="{{ route('admin.categories.index')}}" class="nav-link">
