@@ -28,6 +28,9 @@
     <!--begin::Accessibility Features-->
     <!-- Skip links will be dynamically added by accessibility.js -->
     <meta name="supported-color-schemes" content="light dark" />
+
+    <link rel="stylesheet" href="/adminLte/assets/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/adminLte/assets/plugins/select2/bootstrap4/select2-bootstrap4.min.css">
     <link rel="preload" href=" {{ asset('adminlte/css/adminlte.css') }}" as="style" />
     <!--end::Accessibility Features-->
 
@@ -84,10 +87,113 @@
       integrity="sha256-+uGLJmmTKOqBr+2E6KDYs/NRsHxSkONXFHUL0fy2O/4="
       crossorigin="anonymous"
     />
+
+    <!-- Вставьте этот блок прямо перед тегом </head> -->
+    <style>
+.select2-container--bootstrap4 .select2-dropdown .select2-results__option[aria-selected="true"] {
+
+    cursor: not-allowed;
+    background-color: #636568;
+    
+
+}
+
+/* 1. Сдвигаем выпадающий список вниз, чтобы он не перекрывал поле выбора */
+body .select2-container--open .select2-dropdown--below {
+    margin-top: 5px !important; /* Небольшой аккуратный отступ под полем */
+}
+
+
+
+  /* 1. Выпадающий список (уже работает, сохраняем) */
+  body .select2-dropdown .select2-results__option {
+      color: #ffffff !important;
+      background-color: #212529;
+  }
+
+  /* 2. Подсветка элементов при наведении (уже работает, сохраняем) */
+  body .select2-dropdown .select2-results__option--highlighted[aria-selected="false"] {
+      background-color: #007bff !important;
+      color: #ffffff !important;
+  }
+
+  body .select2-container .select2-selection--multiple
+  {
+     background-color: #212529;
+  }
+
+  /* ========================================== */
+  /* ТЯЖЕЛАЯ АРТИЛЛЕРИЯ ДЛЯ ВЫБРАННЫХ ЭЛЕМЕНТОВ */
+  /* ========================================== */
+
+  /* 3. Принудительный синий фон для самих плашек */
+  body .select2-container .select2-selection--multiple .select2-selection__choice {
+      background: #007bff !important;
+      background-color: #007bff !important;
+      border-color: #0069d9 !important;
+      color: #ffffff !important;
+  }
+
+
+
+  /* 5. Белый крестик удаления */
+  body .select2-container .select2-selection__choice__remove {
+      color: #ffffff !important;
+      background: transparent !important;
+      border: none !important;
+  }
+
+  /* 6. Красный фон крестика при наведении */
+  /* body .select2-container .select2-selection__choice__remove:hover {
+      background-color: #dc3545 !important;
+      color: #ffffff !important;
+  } */
+
+  /* 7. Ограничение высоты контейнера для предотвращения багов */
+  body .select2-container {
+      z-index: 99999 !important;
+  }
+
+
+
+  /* Полное уничтожение черного фона инпута поиска внутри мультиселекта */
+body .select2-container .select2-search__field {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+    
+    /* Сбрасываем браузерные стили (Chrome / Safari / Firefox) */
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+    
+    /* Если он не уменьшается, делаем его высоту нулевой и убираем рамки */
+    height: auto !important;
+    min-height: 0 !important;
+}
+
+/* Скрываем подложку самого контейнера поиска */
+body .select2-selection__rendered .select2-search {
+    background: transparent !important;
+    background-color: transparent !important;
+    border: none !important;
+}
+
+</style>
+
+
+  </head>
+
+    
+
+
   </head>
   <!--end::Head-->
   <!--begin::Body-->
   <body class="layout-fixed sidebar-expand-lg bg-body-tertiary">
+    
     <!--begin::App Wrapper-->
 
     @if(session('success'))
@@ -466,11 +572,15 @@
 
 
       $('#postForm').on('submit', function () {
+
             $('textarea[name="content"]').val(
-                $('#summernote').summernote('code')
+                $('#summernote').summernote('code') // при вставки данных 
             );
-});
+        });
+        
 </script>
+
+
 <script>
 document.getElementById('preview_image').addEventListener('change', function () {
     document.getElementById('file_name').textContent =
@@ -482,6 +592,19 @@ document.getElementById('main_image').addEventListener('change', function () {
         this.files.length ? this.files[0].name : 'Файл не выбран';
 });
 </script>
+
+<script src="/adminLte/assets/plugins/select2/js/select2.full.min.js"></script>
+<script>
+  $(function () {
+    $('.select2').select2({
+        theme: 'bootstrap4',
+       
+        dropdownPosition: 'below' // Текст-подсказка
+      
+    });
+});
+</script>
+
   </body>
   <!--end::Body-->
 </html>

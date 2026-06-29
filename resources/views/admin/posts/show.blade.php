@@ -62,6 +62,10 @@
                             <td>Название</td>
                             <td>{{ $post->title}}</td>
                           </tr>
+                          <tr>
+                            <td>Содержимое</td>
+                            <td>{!! $post->content !!}</td>
+                          </tr>
                   
                   
                       </tbody>

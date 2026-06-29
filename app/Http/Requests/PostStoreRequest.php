@@ -15,6 +15,27 @@ class PostStoreRequest extends FormRequest
         return true;
     }
 
+
+    protected function prepareForValidation()
+    {
+
+    // dd($this->input('content'));
+        // Вытаскиваем контент (безопасный аналог $this->input())
+        $content = $this->request->get('content');
+
+        if ($content) {
+            // Очищаем теги и невидимые пробелы для проверки
+            $cleanContent = strip_tags($content);
+            $cleanContent = html_entity_decode($cleanContent);
+            $cleanContent = preg_replace('/[\p{Z}\s]+/u', '', $cleanContent);
+
+            // Если остался только пустой HTML-мусор — затираем в null
+            if ($cleanContent === '') {
+                $this->merge(['content' => null]);
+            }
+        }
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -22,32 +43,41 @@ class PostStoreRequest extends FormRequest
      */
     public function rules(): array
     {
+       
+
+      
         return [
             'title' => 'required|string',
             'content' => 'required|string',
-            'preview_image' => 'nullable|image',
-            'main_image' => 'nullable|image',
-            'category_id' => 'required|exists:categories,id'
+            'preview_image' => 'required|file',
+            'main_image' => 'required|file',
+            'category_id' => 'required|integer|exists:categories,id',
+            'tag_ids' => 'array|nullable',
+            'tag_ids.*' =>'nullable|integer|exists:tags,id'
         ];
     }
 
     
 
 
-    public function withValidator($validator)
-            {
-                $validator->after(function ($validator) {
+    // public function withValidator($validator)
+    //         {
+    //                  dd($this->input('content'));
+    //                 // dd($this->all());
+          
+    //             $validator->after(function ($validator) {
 
-                    $content = strip_tags($this->content); // delete html tags
+    //                $content =  $this->input('content');
+    //             //    dd($content);
+    //                $content = strip_tags($content);// delete html tags
+    //                   if (trim($content) === '') {
+    //                     $validator->errors()->add(
+    //                         'content',
+    //                         'Поле контент обязательно для заполнения!!!.'
+    //                     );
+    //                 }
+    //             });
+    //         }
 
-                    if (trim($content) === '') {
-                        $validator->errors()->add(
-                            'content',
-                            'Поле контент обязательно для заполнения!!!.'
-                        );
-                    }
-                });
-            }
 
-
-}
+ }

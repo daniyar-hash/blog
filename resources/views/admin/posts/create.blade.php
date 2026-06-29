@@ -52,7 +52,7 @@
                         </div>
                         @enderror
                       </div>
-                     <div class="form-group w-50 mt-2">
+                     <div class="form-group w-60 mt-2">
                       <label for="">Добавить превью</label>
                           <div class="input-group mt-2">
                             <input type="file" name="preview_image" id="preview_image" hidden>
@@ -80,7 +80,7 @@
                         </div>
                         @enderror
                      </div>
-                    <div class="form-group w-50 mt-2">
+                    <div class="form-group w-60 mt-2">
                       <label for="">Добавить главное изображение</label>
                           <div class="input-group mt-2">
                             <input type="file" name="main_image" id="main_image" hidden>
@@ -108,7 +108,7 @@
                         </div>
                         @enderror
                      </div>
-                      <div class="mb-3">
+                      <div class="mb-3 form-group">
                         <label class="form-label" for="select-default">Выберите категорию</label>
                         <select class="form-select" id="select-default" name="category_id">
                           @foreach($categories as $category)
@@ -117,6 +117,16 @@
                           @endforeach
                          
                         </select>
+                      </div>
+                      <div class="mb-3 ">
+                       <label for="tags" class="form-label text-white">Выберите теги для статьи:</label>
+                       <select class="select2 w-100" multiple="multiple"  name="tag_ids[]" data-placeholder="Выберите теги" >
+
+                          @foreach($tags as $tag)
+                           <option  {{ is_array( old('tag_ids')) && in_array($tag->id, old('tag_ids')) ? 'selected' : ''}} value="{{ $tag->id}}">{{ $tag->title}}</option>
+                          @endforeach
+                       
+                      </select>
                       </div>
                    
                       <button type="submit" class="btn btn-primary mt-3">Добавить</button>
