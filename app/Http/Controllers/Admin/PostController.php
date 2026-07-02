@@ -10,9 +10,14 @@ use App\Models\Tag;
 use App\Models\Post;
 use Exception;
 use Illuminate\Support\Facades\Storage;
+use App\Service\PostService;
 
 class PostController extends Controller
 {
+        
+    public function __construct(protected PostService $service) {}
+
+
     /**
      * Display a listing of the resource.
      */
@@ -30,7 +35,7 @@ class PostController extends Controller
     {
         $categories = Category::all();
         $tags = Tag::all();
-        // dd($categories);
+      
       
 
         return view('admin.posts.create', compact('categories', 'tags')); 
@@ -42,21 +47,9 @@ class PostController extends Controller
     public function store(PostStoreRequest $request)
     {
        
-        // dd($request->all());
-
-        try{
         $data = $request->validated();
-        $tagIds =  $data['tag_ids'] ?? [];
-        unset($data['tag_ids']);
-               
-        $data['preview_image'] = Storage::disk('public')->put('/image', $data['preview_image']);
-        $data['main_image'] = Storage::disk('public')->put('/image', $data['main_image']);
-        $post = Post::create($data);
-        $post->tags()->attach($tagIds);
-        }catch(Exception $exc){
-                abort(404);
-        }
-      
+        $this->service->store($data);
+
         return redirect()->route('admin.posts.index')->with('success', 'Пост успешно добавлен!');
     }
 
@@ -86,37 +79,8 @@ class PostController extends Controller
     public function update(PostUpdateRequest $request, Post $post)
     {
         $data = $request->validated();
-        $tagIds =  $data['tag_ids'] ?? [];
-        unset($data['tag_ids']);
+        $post = $this->service->update($data, $post, $request);
 
-        if($request->hasFile('preview_image')){
-            if($post->preview_image){
-                 Storage::disk('public')->delete($post->preview_image);
-               
-            }
-
-             $data['preview_image'] = Storage::disk('public')->put('images', $request->file('preview_image'));
-
-        } else {
-            unset($data['preview_image']);
-        }
-
-          if($request->hasFile('main_image')){
-            if($post->main_image){
-                 Storage::disk('public')->delete($post->main_image);
-               
-            }
-
-             $data['main_image'] = Storage::disk('public')->put('images', $request->file('main_image'));
-
-        } else {
-            unset($data['main_image']);
-        }
-        
-     
-                
-        $post->update($data);
-        $post->tags()->sync($tagIds);
 
         return redirect()->route('admin.posts.show', compact('post'))
         ->with('success', 'Post updated !');

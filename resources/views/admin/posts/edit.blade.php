@@ -39,7 +39,7 @@
                       <div class="form-group w-25">
                             <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
                               aria-describedby="Название"
-                              value="{{ $post->title}}">
+                              value="{{ old('title', $post->title)}}">
                             @error('title')
                             <div class="text-danger">
                               {{ $message}}
@@ -47,7 +47,7 @@
                             @enderror
                       </div>
                       <div class="form-group mt-2">
-                        <textarea id="summernote" name="content">{{ $post->content }}</textarea>
+                        <textarea id="summernote" name="content">{{ old('content', $post->content) }}</textarea>
                         @error('content')
                         <div class="text-danger">
                           {{ $message}}
@@ -121,7 +121,7 @@
                         <select class="form-select" id="select-default" name="category_id">
                           @foreach($categories as $category)
                           
-                           <option value="{{$category->id }}" {{ $category->id == $post->category_id ? 'selected' : ''}}>{{ $category->title}}</option>
+                           <option value="{{$category->id }}" {{ $category->id == old('category_id',$post->category_id) ? 'selected' : ''}}>{{ $category->title}}</option>
                           @endforeach
                          
                         </select>
@@ -130,7 +130,12 @@
                         <label for="tags" class="form-label text-white">Выберите теги для статьи:</label>
                         <select class="select2 w-100" multiple="multiple"  name="tag_ids[]" data-placeholder="Выберите теги" >
                           @php
-                            $selectedTags = $post->tags->pluck('id')->toArray();
+                            if(old()){
+                               $selectedTags = old('tag_ids', []);
+                            }else{
+                                $selectedTags = $post->tags->pluck('id')->toArray();
+
+                            }
                           @endphp
 
                             @foreach($tags as $tag)
