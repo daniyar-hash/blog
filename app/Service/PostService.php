@@ -24,9 +24,9 @@ class PostService
                 $data['main_image'] = Storage::disk('public')->put('/image', $data['main_image']);
                 $post = Post::create($data);
                 $post->tags()->attach($tagIds);
-                Db::commit();
+                DB::commit();
         }catch(Exception $exc){
-                Db::rollBack();
+                DB::rollBack();
                 abort(500);
         }
     
@@ -39,7 +39,7 @@ class PostService
     {
         try{
 
-        Db::beginTransaction();
+        DB::beginTransaction();
         $tagIds =  $data['tag_ids'] ?? [];
         unset($data['tag_ids']);
 
@@ -63,10 +63,10 @@ class PostService
                             
         $post->update($data);
         $post->tags()->sync($tagIds);
-        Db::commit();
+        DB::commit();
 
         } catch(Exception $exc){
-            Db::rollBack();
+            DB::rollBack();
             abort(500);
         }
 

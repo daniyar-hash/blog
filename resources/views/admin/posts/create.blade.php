@@ -35,6 +35,7 @@
                   <form action="{{ route('admin.posts.store')}}" id="postForm" method="POST" enctype="multipart/form-data">
                       @csrf  
                       <div class="form-group w-25">
+                            
                             <input type="text" name="title" class="form-control @error('title') is-invalid @enderror"
                               aria-describedby="Название"
                               value="{{ old('title')}}">
@@ -111,22 +112,43 @@
                       <div class="mb-3 form-group">
                         <label class="form-label" for="select-default">Выберите категорию</label>
                         <select class="form-select" id="select-default" name="category_id">
+
+                             {{-- Дефолтный пустой вариант --}}
+                        <option value="" {{ old('category_id') === null ? 'selected' : '' }} disabled hidden>
+                            -- Нажмите, чтобы выбрать категорию --
+                        </option>
+                        
                           @foreach($categories as $category)
                           
                            <option value="{{$category->id }}"  {{ $category->id == old('category_id') ? 'selected' : ''}}>{{ $category->title}}</option>
                           @endforeach
                          
                         </select>
+                        @error('category_id')
+                        <div class="text-danger">
+                           {{ $message}}
+                        </div>
+                        @enderror
+
                       </div>
                       <div class="mb-3 ">
                        <label for="tags" class="form-label text-white">Выберите теги для статьи:</label>
-                       <select class="select2 w-100" multiple="multiple"  name="tag_ids[]" data-placeholder="Выберите теги" >
-
+                       {{-- Скрытый инпут с пустым значением отправляет пустую строку, заставляя срабатывать валидатор --}}
+                        <input type="hidden" name="tag_ids" value="">
+                       <select class="select2 w-100" multiple="multiple"  name="tag_ids[]" data-placeholder=" -- Нажмите, чтобы выбрать теги --" >
+                       {{-- Дефолтный пустой вариант --}}
+                          <option>              
+                          </option>
                           @foreach($tags as $tag)
                            <option  {{ is_array( old('tag_ids')) && in_array($tag->id, old('tag_ids')) ? 'selected' : ''}} value="{{ $tag->id}}">{{ $tag->title}}</option>
                           @endforeach
                        
                       </select>
+                       @error('tag_ids')
+                        <div class="text-danger">
+                           {{ $message}}
+                        </div>
+                        @enderror
                       </div>
                    
                       <button type="submit" class="btn btn-primary mt-3">Добавить</button>

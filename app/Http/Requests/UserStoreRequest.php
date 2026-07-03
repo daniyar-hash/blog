@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Foundation\Http\FormRequest;
+
+
+class UserStoreRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+
+
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+         
+            // Останавливаем код прямо на этапе формирования правил валидации
+            //    dd($this->all()); 
+  
+        return [
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users',
+            'password' => 'required'
+            
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Это поле необходимо для заполнения',
+            'name.string' => 'Данные должны соответствовать строчному типу',
+            'email.required' => 'Это поле необходимо для заполнения',
+            'email.unique' => 'Почта с таким именем уже существует',
+            'password.required' => 'Это поле необходимо для заполнения',
+
+
+        ];
+
+    
+    }
+
+
+
+ }

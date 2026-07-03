@@ -33,6 +33,8 @@ class PostController extends Controller
      */
     public function create()
     {
+
+
         $categories = Category::all();
         $tags = Tag::all();
       
@@ -46,7 +48,9 @@ class PostController extends Controller
      */
     public function store(PostStoreRequest $request)
     {
-       
+      //  dd($request->all());
+      
+        
         $data = $request->validated();
         $this->service->store($data);
 

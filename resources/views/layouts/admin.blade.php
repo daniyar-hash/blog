@@ -598,7 +598,7 @@ document.getElementById('main_image').addEventListener('change', function () {
   $(function () {
     $('.select2').select2({
         theme: 'bootstrap4',
-       
+        allowClear: true,// Позволяет очищать выбор и активирует плейсхолдер
         dropdownPosition: 'below' // Текст-подсказка
       
     });
