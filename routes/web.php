@@ -6,21 +6,22 @@ use App\Http\Controllers\Admin\TagController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
+// Route::get('/', function () {
 
-    return view('welcome');
-});
+//     return view('welcome');
+// });
 
 
-// Route::get('/', HomeController::class)
-//     ->name('home');
+Route::get('/', [HomeController::class, 'index'])
+    ->name('home');
 
 // Route::resource('posts', PostController::class)
 //     ->only(['index', 'show']);
 
-Route::prefix('admin')->as('admin.')->group(function () {
+Route::middleware(['auth', 'admin'])->prefix('admin')->as('admin.')->group(function () {
 
     Route::get('/', DashboardController::class)->name('dashboard');
     Route::resource('/categories', CategoryController::class);

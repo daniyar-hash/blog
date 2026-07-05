@@ -208,14 +208,25 @@ body .select2-selection__rendered .select2-search {
       <!--begin::Header-->
       <nav class="app-header navbar navbar-expand bg-body">
         <!--begin::Container-->
-        <div class="container-fluid">
+        <div class="container-fluid ">
           <!--begin::Start Navbar Links-->
+          <div class="col-12 d-flex justify-content-between">
           <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
-                <i class="bi bi-list"></i>
-              </a>
-            </li>
+              <li class="nav-item">
+                <a class="nav-link" data-lte-toggle="sidebar" href="#" role="button">
+                  <i class="bi bi-list"></i>
+                </a>
+              </li>
+          </ul>
+          <ul class="navbar-nav">
+              <li class="nav-item">
+              <form action="{{ route('logout')}}" method="post">
+                @csrf
+                <input type="submit" class="btn btn-outline-primary" value="Выйти">
+              </form>
+              </li>
+          </ul>
+          </div>
        
           </ul>
         </div>
