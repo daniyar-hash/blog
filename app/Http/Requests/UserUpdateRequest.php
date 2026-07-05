@@ -39,7 +39,8 @@ class UserUpdateRequest extends FormRequest
                 'email', 
                 Rule::unique('users')->ignore($this->user_id)
             ],
-              'role' => 'required|integer'
+            
+            'role' => 'required|integer'
                     
             
         ];
