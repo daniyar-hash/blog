@@ -64,8 +64,34 @@
                             </div>
                             @enderror
                       </div>
+                     
+                      <div class="mb-3 form-group w-25">
+                       
+                        <label class="form-label" for="select-default">Выберите роль</label>
+                    
+                        <select class="form-select" id="select-default" name="role">
+
+                        <option value="" {{ old('role') === null ? 'selected' : '' }} disabled hidden>
+                            -- Нажмите, чтобы выбрать роль --
+                        </option>
+                        
+                          @foreach($roles as $id => $role)
+                          
+                           <option value="{{ $id }}"  {{ (string)$id === old('role') ? 'selected' : ''}}>{{ $role }}</option>
+                          @endforeach
+                         
+                        </select>
+                        @error('role')
+                        <div class="text-danger">
+                           {{ $message}}
+                        </div>
+                        @enderror
+
+                      </div>
                       <button type="submit" class="btn btn-primary mt-3">Добавить</button>
                   </form>
+           
+              
               </div>
               <!--end::Col-->
             </div>

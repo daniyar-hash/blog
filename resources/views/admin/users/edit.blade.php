@@ -38,7 +38,6 @@
                       @csrf  
                       <div class="form-group w-25 mb-3">
                             
-                            <input type="hidden"  name="user_id" value="{{$user->id }}">
                             <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
                               
                               value="{{ old('name', $user->name)}}">
@@ -47,6 +46,10 @@
                               {{ $message}}
                             </div>
                             @enderror
+                      </div>
+                      <div class="form-group w-25 mb-3">
+                          <input type="hidden"  name="user_id" value="{{$user->id }}">
+
                       </div>
                            <div class="form-group w-25 mb-3">
                             <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
@@ -57,6 +60,30 @@
                               {{ $message}}
                             </div>
                             @enderror
+                      </div>
+
+                         <div class="mb-3 form-group w-25">
+                       
+                        <label class="form-label" for="select-default">Выберите роль</label>
+                    
+                        <select class="form-select" id="select-default" name="role">
+
+                            <option value="" {{ old('role') === null ? 'selected' : '' }} disabled hidden>
+                                -- Нажмите, чтобы выбрать роль --
+                            </option>
+                            
+                              @foreach($roles as $id => $role)
+                              
+                              <option value="{{ $id }}"  {{ $id === $user->role ? 'selected' : ''}}>{{ $role }}</option>
+                              @endforeach
+                            
+                            </select>
+                            @error('role')
+                            <div class="text-danger">
+                              {{ $message}}
+                            </div>
+                            @enderror
+
                       </div>
                       <input type="submit" class="btn btn-primary mt-3" value="Обновить">
                   </form>

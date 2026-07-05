@@ -25,8 +25,11 @@ class UserController extends Controller
     public function create()
     {
 
-                 
-         return view('admin.users.create'); 
+        $roles = USER::getRole();
+
+     //  dd($roles);
+
+         return view('admin.users.create', compact('roles')); 
     }
 
     /**
@@ -34,8 +37,8 @@ class UserController extends Controller
      */
     public function store(UserStoreRequest $request)
     {
-    
-       // dd($request->all());
+            
+     //   dd($request->all());
         $data = $request->validated();
         User::create($data);
 
@@ -57,8 +60,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-            
-       return view('admin.users.edit', compact('user'));
+       $roles = USER::getRole();
+       return view('admin.users.edit', compact('user', 'roles'));
 
     }
 
@@ -69,6 +72,7 @@ class UserController extends Controller
     {
 
         $data = $request->validated();
+        // dd($data);
      
         $user->update($data);
  

@@ -14,6 +14,9 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, SoftDeletes;
 
+    const ROLE_ADMIN = 0;
+    const ROLE_READER = 1;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,6 +26,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role'
+        
     ];
 
     /**
@@ -34,6 +39,16 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+
+
+    public static function getRole()
+    {
+            return [
+                self::ROLE_ADMIN => 'Admin',
+                self::ROLE_READER => 'Reader'
+            ];
+    }
 
     /**
      * Get the attributes that should be cast.

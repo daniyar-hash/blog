@@ -28,12 +28,15 @@ class UserStoreRequest extends FormRequest
     {
          
             // Останавливаем код прямо на этапе формирования правил валидации
-            //    dd($this->all()); 
+              //  dd($this->all()); 
+
+           
   
         return [
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
-            'password' => 'required'
+            'password' => 'required',
+            'role' => 'required|integer'
             
         ];
     }
