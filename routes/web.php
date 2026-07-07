@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\HomeController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -21,7 +22,7 @@ Route::get('/', [HomeController::class, 'index'])
 // Route::resource('posts', PostController::class)
 //     ->only(['index', 'show']);
 
-Route::middleware(['auth', 'admin'])->prefix('admin')->as('admin.')->group(function () {
+Route::middleware(['auth', 'admin','verified'])->prefix('admin')->as('admin.')->group(function () {
 
     Route::get('/', DashboardController::class)->name('dashboard');
     Route::resource('/categories', CategoryController::class);
@@ -37,6 +38,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->as('admin.')->group(funct
 });
 
 
-Auth::routes();
+Auth::routes(['verify' => true]);
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

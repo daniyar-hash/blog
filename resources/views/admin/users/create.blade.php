@@ -54,16 +54,7 @@
                             </div>
                             @enderror
                       </div>
-                        <div class="form-group w-25 mb-3">
-                            <input type="password" name="password" class="form-control @error('password') is-invalid @enderror"
-                           
-                              " placeholder="Пароль">
-                            @error('password')
-                            <div class="text-danger">
-                              {{ $message}}
-                            </div>
-                            @enderror
-                      </div>
+                       
                      
                       <div class="mb-3 form-group w-25">
                        

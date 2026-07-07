@@ -35,7 +35,6 @@ class UserStoreRequest extends FormRequest
         return [
             'name' => 'required|string',
             'email' => 'required|email|unique:users',
-            'password' => 'required',
             'role' => 'required|integer'
             
         ];
@@ -48,7 +47,6 @@ class UserStoreRequest extends FormRequest
             'name.string' => 'Данные должны соответствовать строчному типу',
             'email.required' => 'Это поле необходимо для заполнения',
             'email.unique' => 'Почта с таким именем уже существует',
-            'password.required' => 'Это поле необходимо для заполнения',
 
 
         ];
