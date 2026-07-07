@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
+use App\Jobs\UserStoreJob;
 use App\Mail\User\PasswordMAil;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Mail;
 
@@ -41,17 +43,13 @@ class UserController extends Controller
      */
     public function store(UserStoreRequest $request)
     {
-
-  
             
      //   dd($request->all());
         $data = $request->validated();
-        $password = Str::random(10);
-        $data['password'] = $password;
+        UserStoreJob::dispatch($data);
 
-        $user = User::create($data);
-        //Mail::to($data['email'])->send(new PasswordMAil($password));
-        event(new Registered($user));
+       
+          
         return redirect()->route('admin.users.index')->with('success', 'Пользователь успешно добавлен!');
     }
 

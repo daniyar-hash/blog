@@ -3,6 +3,9 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Notifications\SendVerifyEmailWithQueue;
+use App\Notifications\SendVerifyQueueNotification;
 use Database\Factories\UserFactory;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -66,4 +69,15 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
         ];
     }
+
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(
+            (new SendVerifyEmailWithQueue())
+            ->delay(now()->addSeconds(2))
+        );
+    }
+
+
+
 }
