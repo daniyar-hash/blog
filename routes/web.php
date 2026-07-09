@@ -41,4 +41,3 @@ Route::middleware(['auth', 'admin','verified'])->prefix('admin')->as('admin.')->
 Auth::routes(['verify' => true]);
 
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
