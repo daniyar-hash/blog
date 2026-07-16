@@ -1,6 +1,6 @@
-@extends('layouts.admin')
+@extends('layouts.personal')
 
-@section('title', 'Admin Category Page')
+@section('title', 'Likeds Page')
 
 @section('content')
  <main class="app-main">
@@ -13,19 +13,14 @@
             <!--begin::Row-->
             <div class="row">
               <div class="col-sm-6">
-                <h3 class="mb-0">Категории</h3>
+                <h3 class="mb-0">Понравившиеся посты</h3>
               </div>
               
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
                   <li class="breadcrumb-item"><a href="{{ route('admin.dashboard')}}">Главная</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Категории</li>
-                  <li>
-                    {{-- <form action="{{ route('admin.categories.restore', 8) }}" method="POST" style="display:inline;">
-                      @csrf
-                      <button type="submit" class="btn btn-success">Восстановить</button>
-                  </form> --}}
-                  </li>
+                  <li class="breadcrumb-item active" aria-current="page">Понравившиеся посты</li>
+                  
                 </ol>
               </div>
             </div>
@@ -41,7 +36,7 @@
             <!--begin::Row-->
             <div class="row">
               <div class="col-12">
-                <a href="{{ route('admin.categories.create')}}" class="btn btn-block btn-primary">Добавить</a>
+                <a href="{{ route('personal.liked.create')}}" class="btn btn-block btn-primary">Добавить</a>
               </div>
 
             </div>
@@ -56,26 +51,22 @@
                         <tr>
                           <th style="width: 10px" scope="col">ID</th>
                           <th scope="col">Название</th>
-                          <th colspan="3" class="text-center">Действия</th>
+                          <th colspan="2" class="text-center">Действия</th>
                         </tr>
                       </thead>
                       <tbody>
-                           @foreach($categories as $category)
+                           @foreach($posts as $post)
                           <tr class="align-middle text-center">
-                            <td>{{ $category->id}}</td>
-                            <td>{{ $category->title}}</td>
+                            <td>{{ $post->id}}</td>
+                            <td>{{ $post->title}}</td>
                             <td>
-                              <a href="{{ route('admin.categories.show', $category->id)}}" class="text-secondary">
+                              <a href="#" class="text-secondary">
                                 <i class="far fa-eye"></i>
                               </a>
                             </td>
+                           
                             <td>
-                              <a href="{{ route('admin.categories.edit', $category->id)}}" class="text-secondary">
-                               <i class="fas fa-pencil-alt"></i>
-                              </a>
-                            </td>
-                            <td>
-                              <form action="{{ route('admin.categories.destroy', $category->id)}}" method="POST">
+                              <form action="{{ route('personal.liked.destroy', $post->id)}}" method="POST">
                                 @csrf 
                                 @method('DELETE')
                                 <button type="submit" class="text-secondary bg-transparent border-0">

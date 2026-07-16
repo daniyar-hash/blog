@@ -218,7 +218,12 @@ body .select2-selection__rendered .select2-search {
                 </a>
               </li>
           </ul>
-          <ul class="navbar-nav">
+          <ul class="navbar-nav d-flex  gap-3 align-items-center">
+               <li class="nav-item">
+
+                {{ auth()->user()->name}}
+
+               </li>
               <li class="nav-item">
               <form action="{{ route('logout')}}" method="post">
                 @csrf

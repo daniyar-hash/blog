@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Personal;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryStoreRequest;
 use App\Http\Requests\CategoryUpdateRequest;
-use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class LikedController extends Controller
@@ -16,9 +16,10 @@ class LikedController extends Controller
     public function index()
 
     {   
-
-        
-        return view('personal.likeds.index');
+      
+        $posts = auth()->user()->likedPosts;
+        // dd($posts);
+        return view('personal.likeds.index', compact('posts'));
     }
 
     /**
@@ -82,13 +83,14 @@ class LikedController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(Post $post)
     {
+      //  dd($post->id);
+        auth()->user()->likedPosts()->detach($post->id);
+        
 
-        $category->delete();
-
-        return redirect()->route('admin.categories.index')
-             ->with('success', 'Category deleted!');
+        return redirect()->route('personal.liked.index')
+             ->with('success', 'Post deleted!');
         
     }
 

@@ -43,7 +43,7 @@ Route::middleware(['auth', 'admin','verified'])->prefix('admin')->as('admin.')->
 Route::middleware(['auth','verified'])->prefix('personal')->as('personal.')->group(function () {
 
     Route::get('/main', DashboardController::class)->name('dashboard');
-    Route::resource('/liked', LikedController::class);
+    Route::resource('/liked', LikedController::class)->parameters(['liked' => 'post']);
     Route::resource('/comment', CommentController::class);
    
     
