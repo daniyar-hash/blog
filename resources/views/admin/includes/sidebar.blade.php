@@ -22,6 +22,13 @@
               id="navigation"
             >
 
+                <li class="nav-item">
+                <a href="{{ route('admin.dashboard')}}" class="nav-link">
+                <i class="fas fa-home nav-icon"></i>
+                  <p>Главная</p>
+                </a>
+              </li>
+
               <li class="nav-item">
                 <a href="{{ route('admin.users.index')}}" class="nav-link">
                 <i class="fas fa-users nav-icon"></i>

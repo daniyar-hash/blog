@@ -28,8 +28,9 @@
               </div>
               <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
-                  <li class="breadcrumb-item"><a href="#">Home</a></li>
-                  <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
+                  <li class="breadcrumb-item"><a href="{{ route('admin.dashboard')}}">Главная</a></li>
+                  <li class="breadcrumb-item"><a href="{{ route('admin.tags.index')}}">Тэги</a></li>
+                  <li class="breadcrumb-item active" aria-current="page">Просмотр тэга</li>
                 </ol>
               </div>
             </div>
