@@ -36,7 +36,7 @@
             <!--begin::Row-->
             <div class="row">
               <div class="col-12">
-                <a href="{{ route('personal.liked.create')}}" class="btn btn-block btn-primary">Добавить</a>
+                <a href="{{ route('personal.likeds.create')}}" class="btn btn-block btn-primary">Добавить</a>
               </div>
 
             </div>
@@ -66,7 +66,7 @@
                             </td>
                            
                             <td>
-                              <form action="{{ route('personal.liked.destroy', $post->id)}}" method="POST">
+                              <form action="{{ route('personal.likeds.destroy', $post->id)}}" method="POST">
                                 @csrf 
                                 @method('DELETE')
                                 <button type="submit" class="text-secondary bg-transparent border-0">

@@ -89,7 +89,7 @@ class LikedController extends Controller
         auth()->user()->likedPosts()->detach($post->id);
         
 
-        return redirect()->route('personal.liked.index')
+        return redirect()->route('personal.likeds.index')
              ->with('success', 'Post deleted!');
         
     }

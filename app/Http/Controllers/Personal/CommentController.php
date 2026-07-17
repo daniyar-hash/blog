@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Personal;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CommentUpdateRequest;
 use App\Http\Requests\PostStoreRequest;
 use App\Http\Requests\PostUpdateRequest;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Models\Tag;
 use App\Models\Post;
 use Exception;
@@ -16,16 +18,15 @@ class CommentController extends Controller
 {
         
 
-
-
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-      
-          
-        return view('personal.comments.index');
+        $comments = auth()->user()->comments;
+        // dd($comments);
+                    
+        return view('personal.comments.index', compact('comments'));
     }
 
     /**
@@ -34,12 +35,8 @@ class CommentController extends Controller
     public function create()
     {
 
-
-        $categories = Category::all();
-        $tags = Tag::all();
-      
-      
-
+    
+           
         return view('admin.posts.create', compact('categories', 'tags')); 
     }
 
@@ -48,11 +45,7 @@ class CommentController extends Controller
      */
     public function store(PostStoreRequest $request)
     {
-      //  dd($request->all());
-      
-        
-        $data = $request->validated();
-        $this->service->store($data);
+
 
         return redirect()->route('admin.posts.index')->with('success', 'Пост успешно добавлен!');
     }
@@ -68,38 +61,37 @@ class CommentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Post $post)
+    public function edit(Comment $comment)
     {
-        //  dd($post->tags->toArray());
-
-        $categories = Category::all();
-        $tags = Tag::all();
-        return view('admin.posts.edit', compact('post', 'categories', 'tags'));
+        // dd($comment);
+      
+        return view('personal.comments.edit', compact('comment'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(PostUpdateRequest $request, Post $post)
+    public function update(CommentUpdateRequest $request, Comment $comment)
     {
         $data = $request->validated();
-        $post = $this->service->update($data, $post, $request);
+        $comment->update($data);
+       
 
 
-        return redirect()->route('admin.posts.show', compact('post'))
-        ->with('success', 'Post updated !');
+        return redirect()->route('personal.comments.index', compact('comment'))
+        ->with('success', 'Comment updated !');
         
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Post $post)
+    public function destroy(Comment $comment)
     {
-        $post->delete();
+        $comment->delete();
 
-        return redirect()->route('admin.posts.index')
-             ->with('success', 'Post deleted!');
+        return redirect()->route('personal.comments.index')
+             ->with('success', 'Comment deleted!');
     }
 }
 

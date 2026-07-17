@@ -42,7 +42,7 @@
              
                   <i class="fas fa-heart small-box-icon"></i>
                   <a
-                    href="{{ route('personal.liked.index')}}"
+                    href="{{ route('personal.likeds.index')}}"
                     class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
                   >
                     Подробнее <i class="bi bi-link-45deg"></i>
@@ -62,7 +62,7 @@
                   <i class="fas fa-comment small-box-icon"></i>
                  
                   <a
-                    href="{{ route('personal.comment.index')}}"
+                    href="{{ route('personal.comments.index')}}"
                     class="small-box-footer link-light link-underline-opacity-0 link-underline-opacity-50-hover"
                   >
                     Подробнее <i class="bi bi-link-45deg"></i>

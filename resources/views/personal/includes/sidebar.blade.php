@@ -30,14 +30,14 @@
               </li>
 
               <li class="nav-item">
-                <a href="{{ route('personal.liked.index')}}" class="nav-link">
+                <a href="{{ route('personal.likeds.index')}}" class="nav-link">
                   <i class="fas fa-heart nav-icon"></i>
                   <p>Понравившиеся посты</p>
                 </a>
               </li>
 
              <li class="nav-item">
-                <a href="{{ route('personal.comment.index')}}" class="nav-link">
+                <a href="{{ route('personal.comments.index')}}" class="nav-link">
                   <i class="fas fa-comment nav-icon"></i>
                   <p>Комментарии</p>
                 </a>
