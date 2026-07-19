@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Edica :: Home</title>
-    <link rel="stylesheet" href="assets/vendors/flag-icon-css/css/flag-icon.min.css">
-    <link rel="stylesheet" href="assets/vendors/font-awesome/css/all.min.css">
-    <link rel="stylesheet" href="assets/vendors/aos/aos.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <script src="assets/vendors/jquery/jquery.min.js"></script>
-    <script src="assets/js/loader.js"></script>
+    <title>@yield('title')</title>
+    <link rel="stylesheet" href="{{ asset('assets/vendors/flag-icon-css/css/flag-icon.min.css')}}">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/font-awesome/css/all.min.css') }} ">
+    <link rel="stylesheet" href=" {{ asset('assets/vendors/aos/aos.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <script src="{{ asset('assets/vendors/jquery/jquery.min.js') }} "></script>
+    <script src="{{ asset('assets/js/loader.js') }}"></script>
 </head>
 <body class="d-flex flex-column min-vh-100">
 
@@ -18,8 +18,8 @@
   <header class="edica-header">
     <div class="container">
         <nav class="navbar navbar-expand-lg navbar-light">
-            <a class="navbar-brand" href="/">
-                <img src="assets/images/logo.svg" alt="Edica">
+            <a class="navbar-brand" href="{{ route('home')}}">
+                <img src="{{asset('assets/images/logo.svg') }}" alt="Edica">
             </a>
             <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse" data-target="#edicaMainNav" aria-controls="edicaMainNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -30,7 +30,7 @@
                 <ul class="navbar-nav mx-auto align-items-center">
                   
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="{{ route('home')}}" id="blogDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Блог</a>
+                        <a class="nav-link dropdown-toggle" href="{{ route('home')}}"  aria-haspopup="true" aria-expanded="false">Блог</a>
                        
                     </li>
                   
@@ -96,10 +96,10 @@
             <strong>Blog Laravel</strong>
         </div>
     </footer>
-    <script src="assets/vendors/popper.js/popper.min.js"></script>
-    <script src="assets/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="assets/vendors/aos/aos.js"></script>
-    <script src="assets/js/main.js"></script>
+    <script src=" {{ asset('assets/vendors/popper.js/popper.min.js') }}"></script>
+    <script src=" {{ asset('assets/vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('assets/vendors/aos/aos.js') }}"></script>
+    <script src=" {{asset('assets/js/main.js') }}"></script>
     <script>
         AOS.init({
             duration: 1000
