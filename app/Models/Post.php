@@ -25,8 +25,15 @@ class Post extends Model
     
         {
 
-           return $this->belongsToMany(User::class, 'post_user_likes');
+           return $this->belongsToMany(User::class, 'post_user_likes'); // связь многие ко многим
 
         }
+
+        public function category()
+        {
+                return $this->belongsTo(Category::class, 'category_id', 'id'); // связь один ко многим 
+        }
+
+    
 
 }
