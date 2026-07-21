@@ -19,8 +19,10 @@ class PostController extends Controller
     {
 
     $posts = Post::paginate(6);
+
     $randPosts = Post::get()->random(4);
     $popularPosts = Post::withCount('likedUsers')->orderBy('liked_users_count', 'DESC')->take(4)->get();
+        
 
      return view('post.index', compact('posts', 'randPosts', 'popularPosts'));
     }

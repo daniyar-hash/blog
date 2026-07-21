@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Admin\TagController;
 
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
@@ -16,12 +16,17 @@ use App\Http\Controllers\Post\CommentController as PostCommentController;
 
 use App\Http\Controllers\Personal\LikedController;
 use App\Http\Controllers\Personal\DashboardController;
-
+use App\Http\Controllers\Post\LikeController as PostLikeController;
 use App\Http\Controllers\Post\PostController;
+use App\Http\Controllers\Category\PostController as CategoryPostController;
+
+use App\Http\Controllers\Category\CategoryController;
 
 
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
+
+
 
 Route::prefix('posts')->as('post.')->group(function(){
 
@@ -32,17 +37,22 @@ Route::prefix('posts')->as('post.')->group(function(){
         ->name('show');
 
     Route::post('/{post}/comments', [PostCommentController::class, 'store'])->name('comment.store');
+
+    Route::post('/{post}/likes', [PostLikeController::class, 'store'])->name('like.store');
 });
 
+Route::prefix('categories')->as('category.')->group(function(){
+
+    Route::get('/', [CategoryController::class, 'index'])->name('index');
+    Route::get('/{category}/posts', [CategoryPostController::class, 'index'])->name('posts.index');
 
 
-// Route::resource('posts', PostController::class)
-//     ->only(['index', 'show']);
+});
 
 Route::middleware(['auth', 'admin','verified'])->prefix('admin')->as('admin.')->group(function () {
 
     Route::get('/', AdminDashboardController::class)->name('dashboard');
-    Route::resource('/categories', CategoryController::class);
+    Route::resource('/categories', AdminCategoryController::class);
     Route::resource('/tags', TagController::class);
     Route::resource('/posts', AdminPostController::class);
     Route::resource('/users', UserController::class);

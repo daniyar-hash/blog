@@ -48,6 +48,28 @@
             </section>
             <div class="row">
                 <div class="col-lg-9 mx-auto">
+                    <section class="py-6">
+                          @auth()
+                         <form action="{{ route('post.like.store', $post->id) }}" method="post">
+                            @csrf
+                            <span>{{ $post->liked_users_count}}</span>
+                            <button type="submit" class="border-0 bg-transparent">
+                                @if(auth()->user()->likedPosts->contains($post->id))
+                                <i class="fas fa-heart"></i>
+                                @else
+                                <i class="far fa-heart"></i>
+                                @endif
+                            </button>
+                        </form>
+                           @endauth
+                           @guest()
+                           <div>
+                              <span>{{ $post->liked_users_count}}</span>
+                              <i class="far fa-heart"></i>
+                           </div>
+                           @endguest
+                    </section>
+                    @if($relatedPosts->count() > 0)
                     <section class="related-posts">
                         <h2 class="section-title mb-4" data-aos="fade-up">Схожие посты</h2>
                         <div class="row">
@@ -60,6 +82,7 @@
                             @endforeach
                         </div>
                     </section>
+                    @endif
                     <section class="comment-list">
                        <div class="direct-chat-contacts bg-secondary">
                       <ul class="contacts-list">
@@ -84,12 +107,12 @@
                     </section>
                     @auth
                     <section class="comment-section">
-                        <h2 class="section-title mb-5" data-aos="fade-up">Комментарий</h2>
+                        <h2 class="section-title mb-5" data-aos="fade-up">Комментарий ({{ $post->comments->count()}})</h2>
                         <form action="{{ route('post.comment.store', $post->id)}}" method="post">
                             @csrf
                             <div class="row">
                                 <div class="form-group col-12" data-aos="fade-up">
-                                <label for="comment" class="sr-only">Комментарий</label>
+                                <label for="comment" class="h3 mb-2">Отправить комментарий</label>
                                 <textarea name="message" id="comment" class="form-control" placeholder="Напишите комментарий!" rows="10"></textarea>
                                 </div>
                             </div>

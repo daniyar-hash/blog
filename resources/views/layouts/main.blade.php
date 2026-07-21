@@ -38,6 +38,10 @@
                         <a class="nav-link dropdown-toggle" href="{{ route('home')}}"  aria-haspopup="true" aria-expanded="false">Блог</a>
                        
                     </li>
+                     <li class="nav-item ">
+                        <a class="nav-link" href="{{ route('category.index')}}" >Категории</a>
+                       
+                    </li>
                   
                 </ul>
   <!-- Right Side Of Navbar -->
