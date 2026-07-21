@@ -197,11 +197,11 @@ body .select2-selection__rendered .select2-search {
     <!--begin::App Wrapper-->
 
     @if(session('success'))
-    <div class="alert alert-primary" role="alert">
-    {{ session('success')}}
-  </div>
-
-  @endif
+      <div class="alert alert-primary" role="alert">
+      {{ session('success')}}
+      </div>
+    @endif
+    
     <div class="app-wrapper">
 
   

@@ -32,6 +32,7 @@ class PostController extends Controller
         ->where('id', '!=', $post->id)
         ->get()
         ->take(3);
+      
 
        
         return view('post.show', compact('post', 'date', 'relatedPosts'));

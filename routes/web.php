@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Route;
 
 
 use App\Http\Controllers\Personal\CommentController;
+use App\Http\Controllers\Post\CommentController as PostCommentController;
+
 use App\Http\Controllers\Personal\LikedController;
 use App\Http\Controllers\Personal\DashboardController;
 
@@ -21,12 +23,18 @@ use App\Http\Controllers\Post\PostController;
 Route::get('/', [HomeController::class, 'index'])
     ->name('home');
 
-Route::get('/posts', [PostController::class, 'index'])
-    ->name('post.index');
+Route::prefix('posts')->as('post.')->group(function(){
+
+    Route::get('/', [PostController::class, 'index'])
+        ->name('index');
+
+    Route::get('/{post}', [PostController::class, 'show'])
+        ->name('show');
+
+    Route::post('/{post}/comments', [PostCommentController::class, 'store'])->name('comment.store');
+});
 
 
-Route::get('/posts/{post}', [PostController::class, 'show'])
-    ->name('post.show');
 
 // Route::resource('posts', PostController::class)
 //     ->only(['index', 'show']);

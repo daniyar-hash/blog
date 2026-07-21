@@ -13,6 +13,11 @@
     <script src="{{ asset('assets/js/loader.js') }}"></script>
 </head>
 <body class="d-flex flex-column min-vh-100">
+     @if(session('success'))
+        <div class="alert alert-primary" role="alert">
+        {{ session('success')}}
+        </div>
+      @endif
 
 <div class="edica-loader"></div>
   <header class="edica-header">
@@ -41,7 +46,7 @@
                             @if (Route::has('login'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('login') }}">
-                                        {{ __('Login') }}
+                                       Войти
                                     </a>
                                 </li>
                             @endif
@@ -49,11 +54,17 @@
                             @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">
-                                        {{ __('Register') }}
+                                      Регистрация
                                     </a>
                                 </li>
                             @endif
                         @else
+                        <li class="nav-item">
+                            <a  class="nav-link" href="{{ route('personal.dashboard')}}">
+                                Личный Кабинет
+                            </a>
+
+                        </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown"
                                    class="nav-link dropdown-toggle"
@@ -70,7 +81,7 @@
                                        href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                        document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
+                                        Выйти
                                     </a>
 
                                     <form id="logout-form"
